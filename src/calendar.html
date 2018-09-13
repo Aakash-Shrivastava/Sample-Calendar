@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet">
+    <link href="./index.css" rel="stylesheet">
+    <title>Calendar</title>
+    <style media="screen">
+       
+    </style>
+</head>
+
+<body>
+    <div section="header" class="header">
+        <div class="navigation">
+            <button onclick="prevDates();">
+                Prev
+            </button>
+            <button onclick="nextDates();">
+                Next
+            </button>
+        </div>
+        <select class="drop-down">
+            <option>Week View</option>
+            <option>Month View</option>
+        </select>
+    </div>
+    <div section="calendar">
+        <table id="cal-table" style="width:100%">
+
+            <tr id="table-header">
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <div section="modal" id="modal" class="nodisplay">
+        <div class="modal-overlay" id="modal">
+            <div class="card-banner">
+                <div class="selected-date">
+                    <div>
+                        <!-- <span>Event Date</span> -->
+                        <span id="dateDiv"></span>
+                    </div>
+                    <!-- <div>
+                                <span>Event Time</span>
+                                <span id="timeDiv"></span>
+                            </div> -->
+                </div>
+
+                <input id="title" name="title" class="event-title" placeholder="Enter event title">
+
+                <div class="guests">
+                    <input id="guest" name="guest" class="guest-list" width="100px" placeholder="Enter list of guests separated by commas">
+                </div>
+                <div>
+                    <button class="save-btn" onClick=submitEvent();>SAVE</button>
+                    <button class="close-btn" onClick=closeModal();>CLOSE</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="./index.js"></script>
+
+</html>

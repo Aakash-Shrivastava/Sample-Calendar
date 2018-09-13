@@ -1,0 +1,179 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff;
+    color: #000000;
+    font-family: "Roboto";
+}
+
+table {
+    /* border: 1px solid black; */
+}
+
+th,
+td {
+    /* border: 0.5px solid gray; */
+    border-left: #e0e0e0 1px solid;
+    border-top: #e0e0e0 1px solid;
+}
+
+th:first-child {
+    width: 35px;
+}
+
+th:last-child {
+    border-right: #e0e0e0 1px solid;
+}
+
+table {
+    border-bottom: #e0e0e0 1px solid;
+    border-collapse: collapse;
+    color: #545454;
+}
+
+th {
+    width: 80px;
+    height: 35px;
+}
+
+.drop-down {
+    float: right;
+}
+
+.navigation {
+    width: 100px;
+    display: inline-block;
+}
+
+.header {
+    margin: 5px;
+    padding: 5px;
+}
+
+.modal-overlay {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.46);
+    z-index: 600 !important;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+.display {
+    display: block;
+}
+
+.nodisplay {
+    display: none;
+}
+
+.card-banner {
+    display: block;
+    width: 400px;
+    position: relative;
+    margin: 0 auto;
+    height: 157px;
+    background: white;
+    top: 30%;
+    padding: 10px;
+}
+
+/* #dateDiv,
+#timeDiv {
+    padding-left: 50px;
+} */
+
+.event-title {
+    color: black;
+    font-size: 1em;
+    border: 1px solid hsla(0, 0%, 86%, .64) !important;
+    height: 30px;
+    width: 100%;
+    outline: none;
+    margin: 10px 0px 10px;
+    padding: 0 5px;
+}
+
+.save-btn {
+    background: #4285f4;
+    color: white;
+    text-transform: capitalize;
+    width: 75px;
+    height: 28px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.close-btn {
+    border: none;
+    background: #eaeaea;
+    color: #757575;
+    width: 75px;
+    height: 28px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.guest-list {
+    color: black;
+    font-size: 12px;
+    border: 1px solid hsla(0, 0%, 86%, .64) !important;
+    height: 30px;
+    width: 100%;
+    outline: none;
+    margin: 0px 0px 10px;
+    padding: 0 5px;
+}
+
+.table-header {
+    height: 90px;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: baseline;
+}
+
+.color-blue {
+    color: blue;
+    padding-top: 7px;
+}
+
+.day-header {
+    text-align: left;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+.date-header {
+    text-align: left;
+    font-size: 45px;
+    padding-left: 10px;
+}
+
+.month-header {
+    text-align: left;
+    font-size: 15px;
+    position: relative;
+    left: 4.5em;
+    bottom: 1.7em;
+}
+
+.cell-eventName {
+    text-align: left;
+    background: #039BE5;
+    color: white;
+    padding: 3px 5px;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.cell-eventGuests {
+    font-size: 12px;
+    padding: 4px 0px;
+    font-weight: normal;
+}
