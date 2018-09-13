@@ -2,9 +2,23 @@ window.onload = function () {
 
 
     window.CurrentCalDate = new Date();
-    window.createTable = function (nextdate, isRow) {
+    window.createTable = function (nextdate) {
         var todayDate = new Date();
         var newdate;
+
+        var table = document.createElement("table");
+        table.className = "cal-table";
+
+        var tableRow = document.createElement("tr");
+        tableRow.setAttribute("id", "table-header");
+        table.appendChild(tableRow)
+
+        var emptyTableHeader = document.createElement("th");
+        tableRow.appendChild(emptyTableHeader)
+
+        var calendarSection = document.getElementById("calendar");
+        calendarSection.appendChild(table);
+
         for (var i = 0; i < 10; i++) {
             nextdate ? newdate = new Date(nextdate) : newdate = new Date();
             newdate.setHours(nextdate.getHours() + 24 * i);
@@ -34,60 +48,60 @@ window.onload = function () {
                 tableHeaderElem.classList.add("color-blue");
             }
 
-            var tableHeader = document.getElementById("table-header");
-            tableHeader.appendChild(tableHeaderElem);
+            tableRow.appendChild(tableHeaderElem);
         }
-        if (isRow) {
-            for (var i = 0; i < 24; i++) {
-                var tableRow = document.createElement('tr');
 
+
+        for (var i = 0; i < 24; i++) {
+            var tableRow = document.createElement('tr');
+
+            var tableRowElm = document.createElement('th');
+            // tableRowElm.setAttribute('class','tuple');
+            if (i <= 12) {
+                tableRowElm.innerHTML = i + " am";
+            } else {
+                tableRowElm.innerHTML = (i - 12) + " pm";
+            }
+            tableRow.appendChild(tableRowElm);
+            for (var j = 0; j < 10; j++) {
                 var tableRowElm = document.createElement('th');
-                // tableRowElm.setAttribute('class','tuple');
-                if (i <= 12) {
-                    tableRowElm.innerHTML = i + " am";
-                } else {
-                    tableRowElm.innerHTML = (i - 12) + " pm";
-                }
+                tableRowElm.setAttribute('class', 'tuple');
+                tableRowElm.onclick = eventCreate;
+                tableRowElm.innerHTML = "";
                 tableRow.appendChild(tableRowElm);
-                for (var j = 0; j < 10; j++) {
-                    var tableRowElm = document.createElement('th');
-                    tableRowElm.setAttribute('class', 'tuple');
-                    tableRowElm.onclick = eventCreate;
-                    tableRowElm.innerHTML = "";
-                    tableRow.appendChild(tableRowElm);
-                }
-                var tableHeader = document.getElementById("cal-table");
-                tableHeader.appendChild(tableRow);
+            }
+            table.appendChild(tableRow);
+        }
+        if (window.localStorage) {
+            var existingEvent = localStorage.getItem("eventData");
+            if (existingEvent) {
+                setEventAtCell(existingEvent, true)
             }
         }
     }
-    createTable(new Date(), true);
-    if (window.localStorage) {
-        var existingEvent = localStorage.getItem("eventData");
-        if (existingEvent) {
-            setEventAtCell(existingEvent, true)
-        }
-    }
+    createTable(new Date());
+
+
 }
 
 function nextDates(nextdate) {
-    var calendar = document.getElementById("table-header");
+    var calendar = document.getElementById("calendar");
     calendar.innerHTML = "";
     var tableHeader = document.createElement('th');
     tableHeader.innerHTML = "";
-    calendar.appendChild(tableHeader);
+
     CurrentCalDate.setDate(CurrentCalDate.getDate() + 10);
-    createTable(new Date(CurrentCalDate), false);
+    createTable(new Date(CurrentCalDate));
 }
 
 function prevDates(nextdate) {
-    var calendar = document.getElementById("table-header");
+    var calendar = document.getElementById("calendar");
     calendar.innerHTML = "";
     var tableHeader = document.createElement('th');
     tableHeader.innerHTML = "";
-    calendar.appendChild(tableHeader);
+
     CurrentCalDate.setDate(CurrentCalDate.getDate() - 10);
-    createTable(new Date(CurrentCalDate), false);
+    createTable(new Date(CurrentCalDate));
 }
 
 function eventCreate(event) {
@@ -141,17 +155,26 @@ function setEventAtCell(eventDetails, afterRefresh) {
         var table = document.getElementById('table-header');
         var existingEvent = JSON.parse(eventDetails);
 
-        var eventNameDiv = document.createElement('div');
-        eventNameDiv.innerHTML = existingEvent.eventName;
-        eventNameDiv.classList.add('cell-eventName');
+        var tableHeaders = document.getElementsByClassName('table-header')
 
-        var guestNameDiv = document.createElement('div');
-        guestNameDiv.innerHTML = existingEvent.eventGuests;
-        guestNameDiv.classList.add('cell-eventGuests');
 
-        var rows = document.getElementsByTagName('tr')
-        var cell =  rows[+existingEvent.eventCellRow].cells[+existingEvent.eventCellCol];
-        cell.appendChild(eventNameDiv).appendChild(guestNameDiv);
+        //To check if cell to update is there in current table or not. It may not be in this table beacuse on prev and next btn table is populating automatically.
+        if (existingEvent.eventDate.substr(4, 6).split(' ').join('') === tableHeaders[+existingEvent.eventCellCol - 1].textContent.substr(3, 5)) {
+            var eventNameDiv = document.createElement('div');
+            eventNameDiv.innerHTML = existingEvent.eventName;
+            eventNameDiv.classList.add('cell-eventName');
+
+            var guestNameDiv = document.createElement('div');
+            guestNameDiv.innerHTML = existingEvent.eventGuests;
+            guestNameDiv.classList.add('cell-eventGuests');
+
+            var rows = document.getElementsByTagName('tr')
+            var cell = rows[+existingEvent.eventCellRow].cells[+existingEvent.eventCellCol];
+            cell.appendChild(eventNameDiv).appendChild(guestNameDiv);
+        }
+
+
+
     } else {
         var selectedCell = document.getElementsByClassName("event1")[0];
         var eventNameDiv = document.createElement('div');
