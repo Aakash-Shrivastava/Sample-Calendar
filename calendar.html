@@ -16,17 +16,30 @@
         }
 
         table {
-            border: 1px solid black;
+            /* border: 1px solid black; */
         }
 
         th,
         td {
-            border: 0.5px solid gray;
+            /* border: 0.5px solid gray; */
+            border-left: #e0e0e0 1px solid;
+            border-top: #e0e0e0 1px solid;
+        }
+        th:first-child {
+            width: 35px;
+        }
+        th:last-child {
+            border-right: #e0e0e0 1px solid;
+        }
+        table{
+            border-bottom: #e0e0e0 1px solid;
+            border-collapse: collapse;
+            color: #545454;
         }
 
         th {
             width: 80px;
-            height: 20px;
+            height: 35px;
         }
 
         .drop-down {
@@ -83,6 +96,15 @@
             font-size: 1em;
             border: 1px solid hsla(0, 0%, 86%, .64) !important;
         }
+        .table-header{
+            height: 100px;
+            font-size: 20px;
+            text-align: center;
+            vertical-align: baseline;
+        }
+        .color-blue{
+            color: blue;
+        }
     </style>
 </head>
 
@@ -97,7 +119,8 @@
             </button>
         </div>
         <select class="drop-down">
-            <option>Day View</option>
+            <option>Week View</option>
+            <option>Month View</option>
         </select>
     </div>
     <div section="calendar">
@@ -142,25 +165,31 @@
 
         window.CurrentCalDate = new Date();
         window.createTable = function (nextdate, isRow) {
+            var todayDate = new Date();
+            var newdate;
             for (var i = 0; i < 10; i++) {
-                var newdate = new Date();
+                nextdate? newdate = new Date(nextdate):newdate = new Date();
                 newdate.setHours(nextdate.getHours() + 24 * i);
                 var tableHeaderElem = document.createElement('th');
                 tableHeaderElem.innerHTML = newdate.toString().substr(0, 10);
+                tableHeaderElem.className = 'table-header';
+                if(todayDate.getDate() == newdate.getDate()){
+                    tableHeaderElem.classList.add("color-blue");
+                }
 
                 var tableHeader = document.getElementById("table-header");
                 tableHeader.appendChild(tableHeaderElem);
             }
             if (isRow) {
-                for (var i = 1; i < 24; i++) {
+                for (var i = 0; i < 24; i++) {
                     var tableRow = document.createElement('tr');
 
                     var tableRowElm = document.createElement('th');
                     // tableRowElm.setAttribute('class','tuple');
-                    if (i < 12) {
+                    if (i <=12) {
                         tableRowElm.innerHTML = i + " am";
                     } else {
-                        tableRowElm.innerHTML = i + " pm";
+                        tableRowElm.innerHTML = (i - 12) + " pm";
                     }
                     tableRow.appendChild(tableRowElm);
                     for (var j = 0; j < 10; j++) {
