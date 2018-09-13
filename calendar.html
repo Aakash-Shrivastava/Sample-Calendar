@@ -173,7 +173,7 @@
                 var tableHeaderElem = document.createElement('th');
                 tableHeaderElem.innerHTML = newdate.toString().substr(0, 10);
                 tableHeaderElem.className = 'table-header';
-                if(todayDate.getDate() == newdate.getDate()){
+                if(todayDate.getDate() == newdate.getDate() && todayDate.getMonth() == newdate.getMonth()){
                     tableHeaderElem.classList.add("color-blue");
                 }
 
